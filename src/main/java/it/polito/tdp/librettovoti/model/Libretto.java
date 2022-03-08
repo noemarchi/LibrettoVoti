@@ -4,64 +4,121 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Libretto {
-
-	private List<Voto> voti ;
 	
-	public Libretto() {
-		this.voti = new ArrayList<Voto>() ;
+	// ATTRIBUTI
+	private List<Voto> voti;
+	
+	// COSTRUTTORE
+	public Libretto()
+	{
+		this.voti = new ArrayList<Voto>();
 	}
 	
-	public void add(Voto v) {
-		this.voti.add(v);
-	}
-	
-	public Libretto filtraPunti(int punti) {
-		Libretto result = new Libretto() ;
-		for(Voto v: this.voti) {
-			if(v.getPunti()==punti) {
-				result.add(v);
-			}
-		}
-		return result ;
+	// METODI
+	/**
+	 * permette di aggiungere al libretto un oggetto di classe Voto
+	 * @param voto
+	 */
+	public void add(Voto voto)
+	{
+		this.voti.add(voto);
 	}
 	
 	/**
-	 * Restituisce il punteggio ottenuto all'esame di cui 
-	 * specifico il nome
+	 * restituisce un Libretto contenente tutti i voti
+	 * il cui punteggio è passato per parametro
+	 * @param punti Punteggio numerico 
+	 * @return oggetto della classe Libretto 
+	 */
+	public Libretto filtraPunti(int punti)
+	{
+		Libretto ret = new Libretto();
+		
+		for(Voto v: voti)
+		{
+			if(v.getPunti() == punti)
+			{
+				ret.add(v);
+			}
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Restituisce il punteggio ottenuto all'esame
+	 * il cui nome è passato per parametro
 	 * @param nome Nome dell'esame
 	 * @return punteggio numerico, oppure {@code null} se l'esame non esiste
 	 */
-	public Integer puntiEsame(String nome) {
-		for(Voto v: this.voti) {
-			if( v.getNome().equals(nome) ) {
-				return v.getPunti() ;
+	public Integer getPuntiDatoNome(String nome)
+	{
+		for(Voto v: voti)
+		{
+			if(v.getNomeCorso().compareTo(nome)==0)
+			{
+				return v.getPunti();
 			}
 		}
-//		return -1;
-		return null ;
-//		throw new IllegalArgumentException("Corso non trovato") ;
+		
+		return null;
+		// throw new IllegalArgumentException("Corso non trovato");
 	}
 	
-	
-	public boolean isDuplicato(Voto v) {
-		for(Voto v1: this.voti) {
-			if(v1.equals(v))
-				return true ;
+	/**
+	 * dato un Voto passato come parametro, 
+	 * restituisce un boolean per capire se il voto è gia presente nel libretto (duplicato)
+	 * (stesso nome, stesso punteggio)
+	 * @param v oggetto di classe Voto
+	 * @return true, se nel libretto esiste già lo stesso voto. false altrimenti.
+	 */
+	public boolean isDuplicato(Voto v)
+	{
+		for(Voto x: voti)
+		{
+			if(x.equals(v))
+			{
+				return true;
+			}
 		}
-		return false ;
+		
+		return false;
 	}
 	
-	
-	public boolean isConflitto(Voto v) {
-		Integer punti = this.puntiEsame(v.getNome()) ;
-		if (punti != null && punti != v.getPunti())
+	/**
+	 * dato un Voto passato come parametro, 
+	 * restituisce un boolean per capire se c'è un conflitto con i voti già presenti nel libretto
+	 * (conflitto: stesso nome, punteggio diverso)
+	 * @param v oggetto di classe voto
+	 * @return true, se c'è un conflitto. false altrimenti.
+	 */
+	public boolean isConflitto(Voto v)
+	{
+		Integer punti = this.getPuntiDatoNome(v.getNomeCorso());
+		
+		if(punti != null && punti != v.getPunti())
+		{
 			return true;
-		else
-			return false;
+		}
+		
+		return false;
 	}
 	
-	
-	public String toString() {
-		return this.voti.toString() ;
+	@Override
+	public String toString() 
+	{
+		String s = "";
+		
+		for(Voto v: voti)
+		{
+			if(s!="")
+				s+="\n";
+			
+			s = s + v.toString();
+		}
+		
+		return s;
 	}
+
+
 }
