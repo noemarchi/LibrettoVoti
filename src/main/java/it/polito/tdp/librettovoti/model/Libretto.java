@@ -18,10 +18,17 @@ public class Libretto {
 	/**
 	 * permette di aggiungere al libretto un oggetto di classe Voto
 	 * @param voto
+	 * @return true se oggetto inserito; false se non è stato inserito (Voto duplicato o conflitto)
 	 */
-	public void add(Voto voto)
+	public boolean add(Voto voto)
 	{
-		this.voti.add(voto);
+		if(!isDuplicato(voto) && !isConflitto(voto))
+		{
+			this.voti.add(voto);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -118,6 +125,64 @@ public class Libretto {
 		}
 		
 		return s;
+	}
+	
+	/**
+	 * restituisce una lista contenente gli oggetti di classe Voto
+	 * @return lista di voti
+	 */
+	public List<Voto> getVoti()
+	{
+		return this.voti;
+	}
+	
+	/**
+	 * restituisce un Libretto con i voti migliorati: 
+	 * ciascun voto maggiore o uguale di 18 viene incrementato di 1 punto, 
+	 * e ciascun voto maggiore o ugale di 24 viene incrementato di 2 punti 
+	 * (senza superare il 30).
+	 * @return oggetto di classe Libretto
+	 */
+	public Libretto votiMigliorati()
+	{
+		Libretto nuovo = new Libretto();
+		
+		for(Voto v: this.voti)
+		{
+			int punti = v.getPunti();
+			
+			if(punti < 24)
+			{
+				punti++;
+			}
+			if(punti >= 24)
+			{
+				punti = punti + 2;
+			}
+			if(punti > 30)
+			{
+				punti = 30;
+			}
+			
+			nuovo.add(new Voto(v.getNomeCorso(), punti));
+		}
+		
+		return nuovo;
+	}
+	
+	/**
+	 * elimina dal libretto tutti i voti con punteggio inferiore a quello passato per parametro
+	 * @param punti
+	 */
+	public void cancellaVotiMinoriDi(int punti)
+	{
+		for(Voto v: this.voti)
+		{
+			if(v.getPunti() < punti)
+			{
+				voti.remove(v);
+			}
+		}
 	}
 
 
