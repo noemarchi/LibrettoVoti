@@ -86,6 +86,20 @@ public class FXMLController {
     	this.model = model;
     	
     	this.lblTitolo.setText("Libretto voti");
+    	
+    	List<Voto> voti = model.getVoti();
+    	
+    	this.txtVoti.clear();
+    	this.txtVoti.appendText("Hai superato " + voti.size() + " esami!\n");
+    	for(Voto v: voti)
+    	{
+    		this.txtVoti.appendText(v.toString() + "\n");
+    	}
+    	
+    	this.txtNome.clear();
+    	this.cmbPunti.setValue(null);
+    	
+    	this.lblErrore.setText("");
     }
 
     @FXML

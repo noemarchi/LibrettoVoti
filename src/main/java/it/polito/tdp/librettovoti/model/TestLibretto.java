@@ -6,7 +6,7 @@ public class TestLibretto {
 		
 		Libretto lib = new Libretto();
 		
-		
+		/*
 		lib.add(new Voto("Fisica 1", 27));
 		lib.add(new Voto("Statistica", 22));
 		lib.add(new Voto("Storia energia", 25));
@@ -25,9 +25,11 @@ public class TestLibretto {
 		lib.add(new Voto("Sistemi produzione", 26));
 		lib.add(new Voto("Analisi 2", 21));
 		lib.add(new Voto("Fisica 2", 23));
-		
+		*/
 		
 		//System.out.println(lib);
+		
+		/*
 		
 		System.out.println("*** Esami con voti pari a 25 ***");
 		Libretto lib25 = lib.filtraPunti(25);
@@ -71,6 +73,8 @@ public class TestLibretto {
 		{
 			System.out.println("no. non duplicato");
 		}
+		
+		*/
 	}
 
 }

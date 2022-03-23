@@ -27,7 +27,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="txtVoti" disable="true" />
+            <TextArea fx:id="txtVoti" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" />
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.45339965820312" minWidth="10.0" prefWidth="147.51400756835938" />
