@@ -1,18 +1,21 @@
 package it.polito.tdp.librettovoti.model;
 
+import java.time.LocalDate;
+
 public class Voto {
 	
 	// ATTRIBUTI
 	private String nomeCorso;
 	private int punti;
-	// String dataEsame;
+	private LocalDate data;
 	
 	// COSTRUTTORE
-	public Voto(String nomeCorso, int punti) 
+	public Voto(String nomeCorso, int punti, LocalDate data) 
 	{
 		super();
 		this.nomeCorso = nomeCorso;
 		this.punti = punti;
+		this.data = data;
 	}
 
 	// GETTER & SETTER
@@ -36,10 +39,20 @@ public class Voto {
 		this.punti = punti;
 	}
 
+	public LocalDate getData() 
+	{
+		return data;
+	}
+
+	public void setData(LocalDate data) 
+	{
+		this.data = data;
+	}
+
 	@Override
 	public String toString() 
 	{
-		return nomeCorso + ": " + punti;
+		return nomeCorso + ": " + punti + " (" + this.data.toString() + ")";
 	}
 
 	@Override

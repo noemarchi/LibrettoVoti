@@ -1,10 +1,12 @@
 package it.polito.tdp.librettovoti.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,13 @@ public class LibrettoDAO {
 		{
 			Connection conn = DBConnect.getConnection();
 			
-			String sql = "INSERT INTO libretto.voti (nome,punti) VALUES (?, ?)";
+			String sql = "INSERT INTO libretto.voti (nome,punti,data) VALUES (?, ?, ?)";
 			
 			PreparedStatement st = conn.prepareStatement(sql);
 			
 			st.setString(1, v.getNomeCorso());
 			st.setInt(2, v.getPunti());
+			st.setDate(3, Date.valueOf(v.getData()));
 			
 			int res = st.executeUpdate();
 			
@@ -80,8 +83,9 @@ public class LibrettoDAO {
 			{
 				String nome = res.getString("nome");
 				int punti = res.getInt("punti");
+				LocalDate data = res.getDate("data").toLocalDate();
 				
-				result.add(new Voto(nome, punti));
+				result.add(new Voto(nome, punti, data));
 			}
 			
 			st.close();
